@@ -23,8 +23,7 @@ const signup: NextPage = (props: {}) => {
     const LoginWithGoogle = () => {
 
         signInWithGoogle().then(
-            (user) => {
-                console.log(user);
+            () => {
                 router.push('/')
             }
         ).catch(

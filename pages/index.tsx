@@ -7,8 +7,20 @@ import { Col, Row } from "@nextui-org/react";
 import { Directory } from "../components/Directory";
 import { Messages } from "../components/Messages";
 import { Chat } from "../components/Chat";
-
+import { getAuth, User } from 'firebase/auth';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 const Home: NextPage = () => {
+    const auth = getAuth();
+    const router = useRouter();
+    const user = auth.currentUser;
+    useEffect(() => {
+        console.log(auth.currentUser);
+        if (!auth.currentUser) {
+            router.push("/signup");
+        }
+    }, []);
+
     return (
         <div className={styles.container}>
             <Head>
@@ -19,7 +31,7 @@ const Home: NextPage = () => {
             <main className={styles.main}>
                 <Row style={{ height: "100vh" }} justify="center" align="flex-start">
                     <Navbar />
-                    <Messages />
+                    <Messages user={user} />
                     <Chat />
                     <Directory />
                 </Row>
